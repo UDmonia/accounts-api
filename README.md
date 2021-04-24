@@ -1,2 +1,2 @@
-# accounts-api-
+# accounts-api
 backend APIs for accounts
