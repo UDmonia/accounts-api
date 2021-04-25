@@ -13,7 +13,7 @@ test('Valid user sign up', async () => {
             }
         });
         expect(resp).not.toBeNull();
-        expect(resp.user instanceof User).not.toBeTruthy();
+        expect(resp.user instanceof User).toBeTruthy();
         expect(resp.token).not.toBeNull();
     } catch (err) {
         expect(true).toBeFalsy();

@@ -12,9 +12,9 @@ export class User {
     _id: ID;
     @prop({ type: () => String, required: true, unique: true })
     email: string;
-    @prop({ type: () => String })
+    @prop({ type: () => String, required: true })
     name: string;
-    @prop({ type: () => Date })
+    @prop({ type: () => Date, required: true })
     birthDate: Date
     @prop({ type: () => Date })
     createdAt?: Date;
@@ -22,6 +22,8 @@ export class User {
     updatedAt?: Date;
 
     constructor (args: NewUser) {
+        if (!args.email || !args.name || !args.birthDate)
+            throw new Error('Invalid user data provided');
         this._id = new ObjectId();
         this.email = args.email;
         this.name = args.name;
