@@ -43,7 +43,9 @@ export class MongoRepository<T> {
         if (!isValidObjectId(id)) throw new Error('Invalid Object ID');
 
         const objectId = new ObjectId(id);
-        return this.model.findById(objectId).exec() as Promise<T>;
+        const document = this.model.findById(objectId).exec() as Promise<T>;
+        if (!document) throw new Error('Entity not found');
+        return document;
     }
 
     find (options: QueryOptions): Promise<T[]> {

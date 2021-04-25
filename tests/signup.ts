@@ -1,6 +1,8 @@
 import Accounts, { SignUpRequest } from '../src/accounts';
 import { User } from '../src/accounts/user';
 
+export default () => {
+
 test('Valid user sign up', async () => {
     try {
         const resp = await Accounts.signUp({
@@ -39,3 +41,5 @@ test('Incomplete user sign up', async () => {
             .toBeGreaterThanOrEqual(0);
     }
 });
+
+}
