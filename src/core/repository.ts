@@ -17,7 +17,7 @@ export interface CrudRepository<T> {
 
     findById (id: ObjectIdOrString): Promise<T>;
     find (options: QueryOptions): Promise<T[]>;
-    findOne (filter: any): Promise<T>;
+    findOne (filter: any): Promise<T | undefined>;
     save (entity: T): Promise<T>;
     deleteOne (filter: any): Promise<boolean>;
 }
@@ -54,8 +54,8 @@ export class MongoRepository<T> {
         ).exec() as Promise<T[]>;
     }
 
-    findOne (filter: any): Promise<T> {
-        return this.model.findOne(filter || {}).exec() as Promise<T>;
+    findOne (filter: any): Promise<T | undefined> {
+        return this.model.findOne(filter || {}).exec() as Promise<T | undefined>;
     }
 
     async save (entity: T): Promise<T> {
