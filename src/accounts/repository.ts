@@ -9,7 +9,7 @@ export class UserRepository extends MongoRepository<User> implements CrudReposit
     }
 
     async findByEmail (email: string) {
-        let user = await this.findOne({ filter: { email: email } });
+        let user = await this.findOne({ email: email });
         return user;
     }
 }
@@ -20,12 +20,12 @@ export class CredentialRepository extends MongoRepository<Credential> implements
     }
 
     async findByUsername (username: string) {
-        let credential = await this.findOne({ filter: { username: username } });
+        let credential = await this.findOne({ username: username });
         return credential;
     }
 
     async findByUserId (userId: ID) {
-        let credential = await this.findOne({ filter: { userId: userId } });
+        let credential = await this.findOne({userId: userId });
         return credential;
     }
 }

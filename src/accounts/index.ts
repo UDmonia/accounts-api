@@ -26,7 +26,13 @@ export interface SignInResponse {
 
 async function signUp (request: SignUpRequest): Promise<SignUpResponse> {
     const user = new User(request);
-    const credential = Credential.new(user, request.credential);
+    const credential = await Credential.new(user, request.credential);
+
+    await Promise.all([
+        userRepository.save(user),
+        credentialRepository.save(credential)
+    ]);
+
     const token = new Token(user._id);
     return {
         user,
@@ -36,7 +42,7 @@ async function signUp (request: SignUpRequest): Promise<SignUpResponse> {
 
 async function signIn (request: SignInRequest): Promise<SignInResponse> {
     const credential = await credentialRepository.findByUsername(request.username);
-    const isValid = credential && (await credential.authenticate(request.password));
+    const isValid = credential && (await credential?.authenticate(request.password));
     if (!isValid) throw new Error('Invalid user credential');
 
     try {
@@ -53,7 +59,9 @@ async function signIn (request: SignInRequest): Promise<SignInResponse> {
 
 }
 
-async function profile () {
+async function profile (token: Token) {
+    console.log(token);
+    return userRepository.findById(token.getUserId());
 }
 
 async function updateProfile () {
@@ -63,5 +71,6 @@ export default {
     signUp,
     signIn,
     profile,
-    updateProfile
+    updateProfile,
+    verifyToken: Token.verify
 };
