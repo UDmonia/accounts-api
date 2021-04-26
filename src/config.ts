@@ -11,7 +11,7 @@ function mandatory (envName: string): string {
 const Config = {
     server: {
         host: process.env.SERVER_HOST || '0.0.0.0',
-        port: process.env.PORT || 5000
+        port: Number.parseInt(process.env.PORT || '5000')
     },
     jwt: {
         secret: mandatory('SECRET')

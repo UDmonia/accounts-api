@@ -59,7 +59,9 @@ async function signIn (request: SignInRequest): Promise<SignInResponse> {
 
 }
 
-async function profile () {
+async function profile (token: Token) {
+    console.log(token);
+    return userRepository.findById(token.getUserId());
 }
 
 async function updateProfile () {
@@ -69,5 +71,6 @@ export default {
     signUp,
     signIn,
     profile,
-    updateProfile
+    updateProfile,
+    verifyToken: Token.verify
 };

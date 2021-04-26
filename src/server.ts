@@ -13,9 +13,9 @@ console.log('Starting...');
 (async () => {
 
     await connect(Config.db);
-    console.log('Mongoose connected');
+    console.log('MongoDB connected');
 
-    const serverInfo = await startServer({ context: getAccessToken });
-    console.log(`Apollo Server: ${serverInfo.address}:${serverInfo.port}`);
+    await startServer();
+    console.log(`Express Server: ${Config.server.host}:${Config.server.port}`);
 
 })();
