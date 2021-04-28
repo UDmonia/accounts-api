@@ -2,7 +2,7 @@ import { ID } from '../core/entity';
 import { PasswordCredential, Credential } from './credential';
 import { CredentialRepository, UserRepository } from './repository';
 import { Token } from './token';
-import { NewUser, User } from './user';
+import { NewUser, ProfileChange, User } from './user';
 
 const userRepository = new UserRepository();
 const credentialRepository = new CredentialRepository();
@@ -22,6 +22,19 @@ export interface SignInRequest extends PasswordCredential {
 export interface SignInResponse {
     user: User
     token: string
+}
+
+export interface ChangeProfileRequest extends ProfileChange {
+    token: Token
+}
+
+export interface ChangeProfileResponse {
+    user: User
+} 
+
+export interface ChangePasswordRequest {
+    password: string
+    token: Token
 }
 
 async function signUp (request: SignUpRequest): Promise<SignUpResponse> {
@@ -60,17 +73,35 @@ async function signIn (request: SignInRequest): Promise<SignInResponse> {
 }
 
 async function profile (token: Token) {
-    console.log(token);
     return userRepository.findById(token.getUserId());
 }
 
-async function updateProfile () {
+async function changeProfile (request: ChangeProfileRequest): Promise<ChangeProfileResponse> {
+    const user = await userRepository.findById(request.token.getUserId());
+    user.changeProfile(request);
+    await userRepository.save(user);
+    return {
+        user
+    };
+}
+
+async function changePassword (request: ChangePasswordRequest): Promise<boolean> {
+    const user = await userRepository.findById(request.token.getUserId());
+    const credential = await credentialRepository.findByUserId(user._id);
+    if (credential) {
+        const success:boolean = await credential.changePassword(request.password);
+        await credentialRepository.save(credential);
+        return success;
+    }
+    throw new Error('Invalid user credential');
 }
 
 export default {
     signUp,
     signIn,
     profile,
-    updateProfile,
-    verifyToken: Token.verify
+    changeProfile,
+    changePassword,
+    verifyToken: Token.verify,
+    Token
 };

@@ -21,6 +21,8 @@ function routes () {
     endpoints.post('/signup', accountService.signUp);
     endpoints.post('/signin', accountService.signIn);
     endpoints.get('/profile', accountService.profile);
+    endpoints.put('/profile', accountService.changeProfile);
+    endpoints.put('/password', accountService.changePassword);
 
     return endpoints;
 }
