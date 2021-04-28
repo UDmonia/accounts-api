@@ -35,4 +35,9 @@ export class Credential implements Entity {
     async authenticate (password: string): Promise<boolean> {
         return bcrypt.compare(password, this.password);
     }
+
+    async changePassword (newPassword: string) : Promise<boolean> {
+        this.password = await bcrypt.hash(newPassword, saltRounds);
+        return true;
+    }
 }

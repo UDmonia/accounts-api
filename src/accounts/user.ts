@@ -4,7 +4,14 @@ import { ID, Entity, ObjectId, ObjectIdType } from '../core/entity';
 export interface NewUser {
     email: string;
     name: string;
-    birthDate: Date
+    birthDate: Date,
+    coach?: string;
+}
+
+export interface ProfileChange {
+    email?: string;
+    name?: string;
+    coach?: string;
 }
 
 export class User {
@@ -16,6 +23,10 @@ export class User {
     name: string;
     @prop({ type: () => Date, required: true })
     birthDate: Date
+
+    @prop({ type: () => String })
+    coach?: string;
+
     @prop({ type: () => Date })
     createdAt?: Date;
     @prop({ type: () => Date })
@@ -28,7 +39,13 @@ export class User {
         this.email = args.email;
         this.name = args.name;
         this.birthDate = args.birthDate;
+        this.coach = args.coach;
     }
-    
+
+    changeProfile (args: ProfileChange) {
+        if (args.name) this.name = args.name;
+        if (args.email) this.email = args.email;
+        if (args.coach) this.coach = args.coach;
+    }
 }
 
