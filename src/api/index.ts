@@ -1,4 +1,4 @@
-import Express, { RequestHandler } from 'express';
+import Express, { RequestHandler, Request, Response } from 'express';
 import Config from '../config';
 import cors from 'cors';
 
@@ -15,8 +15,17 @@ PUT /profile
 
 const accountService = new AccountService();
 
+function healthCheck (req: Request, resp: Response) {
+    resp.status(200).send({
+        ok: true,
+        error: null
+    });
+}
+
 function routes () {
     const endpoints = Express.Router();
+
+    endpoints.get('/health', healthCheck);
 
     endpoints.post('/signup', accountService.signUp);
     endpoints.post('/signin', accountService.signIn);
