@@ -8,38 +8,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-    - name: Setup NodeJs
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14.x
+      - name: Setup NodeJs
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
 
-    - name: Package install
-      run: yarn install
+      - name: Package install
+        run: yarn install
 
-    - name: App build
-      run: yarn build
-      
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-1
-      env:
-        AWS_REGION: us-west-1
+      - name: App build
+        run: yarn build
+        
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-1
+        env:
+          AWS_REGION: us-west-1
 
-    - name: ECR Login
-      id: ecr-login
-      uses: aws-actions/amazon-ecr-login@v1
+      - name: ECR Login
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Docker build and push
-      env:
-        ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-        ECR_REPOSITORY: accounts-api
-        IMAGE_TAG: 'latest'
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: Docker build and push
+        env:
+          ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          ECR_REPOSITORY: accounts-api
+          IMAGE_TAG: 'latest'
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
