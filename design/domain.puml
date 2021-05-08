@@ -1,0 +1,24 @@
+@startuml Domain
+
+interface AccountsService {
+    <<mutation> signUp()
+    <<mutation> signIn()
+    <<mutation> changeProfile()
+    <<mutation> changePassword()
+    <<mutation> verifyToken()
+    <<query> profile()
+}
+
+package repositories { }
+
+AccountsService ..> repositories
+
+interface core::Entity
+
+class User implements core::Entity
+class Credential implements core::Entity
+class Token
+
+Credential "*" --> Account
+Token "*" --> Account
+@enduml

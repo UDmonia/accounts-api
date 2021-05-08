@@ -16,6 +16,9 @@ const Config = {
     jwt: {
         secret: mandatory('SECRET')
     },
+    api: {
+        baseUri: process.env.API_BASE_URI || '/'
+    },
     db: {
         url: mandatory('DB_URL'),
         options: mandatory('DB_OPTIONS')

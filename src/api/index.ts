@@ -5,27 +5,10 @@ import cors from 'cors';
 import { AccountService } from './accounts';
 import Accounts from '../accounts';
 
-/*
-
-POST /signup
-POST /signin
-GET /profile
-PUT /profile
-*/
-
 const accountService = new AccountService();
-
-function healthCheck (req: Request, resp: Response) {
-    resp.status(200).send({
-        ok: true,
-        error: null
-    });
-}
 
 function routes () {
     const endpoints = Express.Router();
-
-    endpoints.get('/health', healthCheck);
 
     endpoints.post('/signup', accountService.signUp);
     endpoints.post('/signin', accountService.signIn);
@@ -47,6 +30,13 @@ const getAccessToken: RequestHandler = async (req, res, next) => {
     next();
 };
 
+function healthCheck (req: Request, resp: Response) {
+    resp.status(200).send({
+        ok: true,
+        error: null
+    });
+}
+
 export async function startServer() {
 
     const express = Express();
@@ -54,8 +44,9 @@ export async function startServer() {
     express.use(cors());
     //express.use(Express.urlencoded({ extended: true }));
 
-    express.use(getAccessToken)
-    express.use(routes());
+    express.use(getAccessToken);
+    express.use('/health', healthCheck);
+    express.use(Config.api.baseUri, routes());
 
     const server = express.listen(Config.server.port, Config.server.host);
 
