@@ -53,6 +53,11 @@ Container is based on standard Dockerfile. Following helpful npm/yarn scripts an
 - `docker-login`: Login for AWS ECR registry using default AWS Profile.
 - `docker-push`: Tag and push container to AWS ECR.
 
+# Environments
+- `development`: based on `main` branch. Where latest all development resides.
+- `staging`: based on `pre-release` branch. For pre-release QA and integration testing.
+- `production`: the current production version in `release` branch.
+
 # Continuos Integration/Deployment
 Based on GitHub Actions, see `.github/workflows/main.yml` for details.
 
