@@ -1,4 +1,4 @@
-name: Account Service CI
+name: Account Service CI for Staging
 
 on:
   push:
