@@ -19,6 +19,7 @@
   "jest": {
     "verbose": true,
     "testEnvironment": "node",
+    "testTimeout": 10000,
     "roots": [
       "./src/",
       "./tests/"
