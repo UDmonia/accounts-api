@@ -12,7 +12,6 @@
     "start": "node dist/server.js",
     "test": "jest --collect-coverage",
     "docker-build": "docker build -t co-accounts-api:latest .",
-    "docker-build-arm": "docker build -t co-accounts-api:latest -f Dockerfile.arm .",
     "docker-run": "docker run --name co-accounts-api --env-file .env.docker -p 5000:5000 co-accounts-api",
     "docker-login": "aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 787979102546.dkr.ecr.us-west-1.amazonaws.com",
     "docker-push": "docker tag co-accounts-api:latest 787979102546.dkr.ecr.us-west-1.amazonaws.com/accounts-api:latest & docker push 787979102546.dkr.ecr.us-west-1.amazonaws.com/accounts-api:latest"

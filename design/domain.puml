@@ -19,6 +19,6 @@ class User implements core::Entity
 class Credential implements core::Entity
 class Token
 
-Credential "*" --> Account
-Token "*" --> Account
+Credential "*" --> User
+Token "*" --> User
 @enduml
