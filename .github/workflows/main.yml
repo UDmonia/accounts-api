@@ -19,12 +19,12 @@ jobs:
       - name: Package install
         run: yarn install
 
-      - name: Run unit tests
-        run: yarn test
-        env:
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_OPTIONS: poolSize=20
-          SECRET: secret
+      # - name: Run unit tests
+      #   run: yarn test
+      #   env:
+      #     DB_URL: ${{ secrets.DB_URL }}
+      #     DB_OPTIONS: poolSize=20
+      #     SECRET: secret
 
       - name: App build
         run: yarn build
