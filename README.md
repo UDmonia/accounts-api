@@ -15,6 +15,8 @@ This service manages account Sign-up, Sign-in and user profile update and change
 - `PUT /profile`: Update profile
 - `PUT /password`: Change password
 
+> For easy endpoints testing a Postman collection export is provided at [tests/accounts-api.postman_collection.json](tests/accounts-api.postman_collection.json).
+
 # Usage
 
 ## Install dependencies and/or build
