@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Run local MongoDB for test
+        run: sudo systemctl start mongod.service
+
       - uses: actions/checkout@v2
 
       - name: Setup NodeJs
@@ -20,10 +23,10 @@ jobs:
         run: yarn install
 
       - name: Run unit tests
-        run: yarn test
+        run: yarn jest --ci --collect-coverage
         env:
-          DB_URL: ${{ secrets.DB_URL }}
-          DB_OPTIONS: poolSize=20
+          DB_URL: mongodb://localhost:27017/test
+          DB_OPTIONS: minSize=5&poolSize=20
           SECRET: secret
 
       - name: App build
