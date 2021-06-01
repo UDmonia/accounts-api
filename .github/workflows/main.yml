@@ -22,12 +22,12 @@ jobs:
       - name: Package install
         run: yarn install
 
-      - name: Run unit tests
-        run: yarn jest --ci --collect-coverage
-        env:
-          DB_URL: mongodb://localhost:27017/test
-          DB_OPTIONS: minSize=5&poolSize=20
-          SECRET: secret
+      #- name: Run unit tests
+      #  run: yarn jest --ci --collect-coverage
+      #  env:
+      #    DB_URL: mongodb://localhost:27017/test
+      #    DB_OPTIONS: minSize=5&poolSize=20
+      #    SECRET: secret
 
       - name: App build
         run: yarn build
