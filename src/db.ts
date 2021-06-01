@@ -14,4 +14,4 @@ export const connect = async ({ url, options } : { url: string, options: string 
 
 export const disconnect = async () => {
     await Mongoose.disconnect();
-}
+};
