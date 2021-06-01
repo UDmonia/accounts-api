@@ -3,7 +3,7 @@ import { ID, Entity, ObjectId, ObjectIdType } from '../core/entity';
 
 export interface NewUser {
     email: string;
-    name: string;
+    name?: string;
     birthDate: Date,
     coach?: string;
 }
@@ -19,8 +19,8 @@ export class User {
     _id: ID;
     @prop({ type: () => String, required: true, unique: true })
     email: string;
-    @prop({ type: () => String, required: true })
-    name: string;
+    @prop({ type: () => String, required: false })
+    name?: string;
     @prop({ type: () => Date, required: true })
     birthDate: Date
 
@@ -42,7 +42,7 @@ export class User {
         this.coach = args.coach;
     }
 
-    changeProfile (args: ProfileChange) {
+    changeProfile (args: ProfileChange): void {
         if (args.name) this.name = args.name;
         if (args.email) this.email = args.email;
         if (args.coach) this.coach = args.coach;

@@ -17,6 +17,7 @@ export interface SignUpResponse {
 }
 
 export interface SignInRequest extends PasswordCredential {
+    /* no additional fields */
 }
 
 export interface SignInResponse {
@@ -50,7 +51,7 @@ async function signUp (request: SignUpRequest): Promise<SignUpResponse> {
     return {
         user,
         token: await token.encode()
-    }
+    };
 }
 
 async function signIn (request: SignInRequest): Promise<SignInResponse> {
@@ -65,14 +66,14 @@ async function signIn (request: SignInRequest): Promise<SignInResponse> {
         return {
             user,
             token: await token.encode()
-        }
+        };
     } catch (err) {
         throw new Error('Invalid user credential');
     } 
 
 }
 
-async function profile (token: Token) {
+async function profile (token: Token): Promise<User> {
     return userRepository.findById(token.getUserId());
 }
 

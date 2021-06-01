@@ -8,8 +8,8 @@ export class UserRepository extends MongoRepository<User> implements CrudReposit
         super(User, { schemaOptions: { timestamps: true } });
     }
 
-    async findByEmail (email: string) {
-        let user = await this.findOne({ email: email });
+    async findByEmail (email: string): Promise<User | undefined> {
+        const user = await this.findOne({ email: email });
         return user;
     }
 }
@@ -20,12 +20,12 @@ export class CredentialRepository extends MongoRepository<Credential> implements
     }
 
     async findByUsername (username: string) {
-        let credential = await this.findOne({ username: username });
+        const credential = await this.findOne({ username: username });
         return credential;
     }
 
     async findByUserId (userId: ID) {
-        let credential = await this.findOne({userId: userId });
+        const credential = await this.findOne({userId: userId });
         return credential;
     }
 }

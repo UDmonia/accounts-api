@@ -35,7 +35,7 @@ export class Token {
                 if (err || !decoded) reject(err);
                 else {
                     const payload = decoded as any;
-                    resolve(new Token(payload.userId))
+                    resolve(new Token(payload.userId));
                 }
             };
 

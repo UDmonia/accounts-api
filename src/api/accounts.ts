@@ -2,8 +2,10 @@ import { Request, Response } from 'express';
 import Service from '../core/service';
 import Accounts from '../accounts';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getToken (req: Request): any {
     if ('token' in req) { 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return (req as any).token; 
     }
     return null;
@@ -11,7 +13,7 @@ function getToken (req: Request): any {
 
 export class AccountService extends Service {
 
-    async signUp (req: Request, resp: Response) {
+    async signUp (req: Request, resp: Response): Promise<void> {
         try {
             const result = await Accounts.signUp(req.body);
             super.responseOk(resp, result);
@@ -20,7 +22,7 @@ export class AccountService extends Service {
         }
     }
 
-    async signIn (req: Request, resp: Response) {
+    async signIn (req: Request, resp: Response): Promise<void> {
         try {
             const result = await Accounts.signIn(req.body);
             super.responseOk(resp, result);
@@ -30,7 +32,7 @@ export class AccountService extends Service {
         }
     }
 
-    async profile (req: Request, resp: Response) {
+    async profile (req: Request, resp: Response): Promise<void> {
         const token = getToken(req);
         if (token) {
             const result = await Accounts.profile(token);
@@ -40,7 +42,7 @@ export class AccountService extends Service {
         }
     }
 
-    async changeProfile (req: Request, resp: Response) {
+    async changeProfile (req: Request, resp: Response): Promise<void> {
         const token = getToken(req);
         if (token) {
             const result = await Accounts.changeProfile({
@@ -53,7 +55,7 @@ export class AccountService extends Service {
         }
     }
 
-    async changePassword (req: Request, resp: Response) {
+    async changePassword (req: Request, resp: Response): Promise<void> {
         const token = getToken(req);
         if (token) {
             const result = await Accounts.changePassword({

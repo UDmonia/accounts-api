@@ -36,7 +36,7 @@ export class MongoRepository<T> {
             skip: (page - 1) * pageSize,
             limit: pageSize,
             sort: args.sort
-        }
+        };
     }
 
     async findById (id: ObjectIdOrString): Promise<T> {

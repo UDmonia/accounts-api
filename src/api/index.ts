@@ -26,7 +26,9 @@ const getAccessToken: RequestHandler = async (req, res, next) => {
             const ctx = req as any;
             ctx.token = await Accounts.verifyToken(accessToken as string);
         }
-    } catch (error) { }
+    } catch (error) { 
+        /* ignore invalid tokens */
+    }
     next();
 };
 
