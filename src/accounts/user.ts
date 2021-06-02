@@ -33,7 +33,7 @@ export class User {
     updatedAt?: Date;
 
     constructor (args: NewUser) {
-        if (!args.email || !args.name || !args.birthDate)
+        if (!args.email || !args.birthDate)
             throw new Error('Invalid user data provided');
         this._id = new ObjectId();
         this.email = args.email;
