@@ -20,7 +20,7 @@ jobs:
           node-version: '14'
 
       - name: Package install
-        run: yarn install --force --production=false
+        run: yarn install --frozen-lockfile --production=false
 
       #- name: Run unit tests
       #  run: yarn jest --ci --collect-coverage
